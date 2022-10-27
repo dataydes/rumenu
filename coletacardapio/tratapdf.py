@@ -1,25 +1,21 @@
 # -*- coding: utf-8 -*-
 import os
-import PyPDF2
+import fitz
+import pandas as pd
 
-path = "temp"
-os.chdir(path)
+#selecionando os pdfs
+folder = "temp"
+def get_files(folder):
+    import os
+    os.chdir(folder)
+    files = os.listdir()
+    files = [x for x in files if x.endswith(".pdf")]
+    return files 
+files = get_files(folder) 
+print(files)
 
-def read_text_file(file_path):
-    with open(file_path, "r") as f:
-        print(f.read())
-        pdfFileObj = open(file_path,'rb')
-        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-        pageObj = pdfReader.getPage(0)
-        print(pageObj)
+#realizando a leitura dos pdfs
 
-
-
-
-
-for file in os.listdir():
-    if file.endswith(".pdf"):
-        file_path = f"{path}\{file}"
-
-read_text_file(file_path)
-
+doc = fitz.open(folder+'\\'+files[0])
+page1 = doc[0]
+words = page1.get_text("words")

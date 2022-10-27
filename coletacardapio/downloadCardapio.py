@@ -5,10 +5,18 @@ from selenium import webdriver #Coleta o nome
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import os
+import shutil
+import time
 
+#Apaga a pasta que receberá os pdfs
+shutil.rmtree('./temp',ignore_errors=False, onerror=None)	
+
+#Cria a pastas que receberá os pdfs
 path_loc = os.path.join(os.getcwd(), "temp")
+
+#Configura o chromedriver
 options = Options()
-#options.add_argument('--headless')
+options.add_argument('--headless')
 options.add_argument('window-size=800x600') # optional
 chrome_prefs = {
     "download.prompt_for_download": False,
@@ -20,6 +28,7 @@ chrome_prefs = {
 }
 options.add_experimental_option("prefs", chrome_prefs)           
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+
 driver.get("https://ru.unb.br/index.php/cardapio-refeitorio")
 
 cardapioDarcy = driver.find_element_by_xpath('/html/body/div[2]/div[3]/main/div[2]/div[11]/a')
@@ -28,9 +37,15 @@ cardapioCeilandia = driver.find_element_by_xpath('/html/body/div[2]/div[3]/main/
 cardapioGama = driver.find_element_by_xpath('/html/body/div[2]/div[3]/main/div[2]/div[23]')
 cardapioFazenda = driver.find_element_by_xpath('/html/body/div[2]/div[3]/main/div[2]/div[27]')
 cardapioDarcy.click()
+time.sleep(1)
 cardapioPlanaltina.click()
+time.sleep(1)
 cardapioCeilandia.click()
+time.sleep(1)
 cardapioGama.click()
+time.sleep(1)
 cardapioFazenda.click()
+time.sleep(5)
+driver.close()
 exit()
 
