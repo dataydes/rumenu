@@ -6,4 +6,4 @@ pip install mysql-connector-python
 pip install unidecode
 pip install requests
 pip install webdriver-manager
-pip install tika
+pip install PyPDF2
