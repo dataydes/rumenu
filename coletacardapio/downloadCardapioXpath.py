@@ -1,3 +1,4 @@
+#code que baixa o pdf do site do r.u e salva em uma pasta;
 from ast import Try
 import sys
 from threading import Timer
@@ -9,7 +10,10 @@ import shutil
 import time
 
 #Apaga a pasta que receberá os pdfs
-shutil.rmtree('./temp',ignore_errors=False, onerror=None)	
+try:
+    shutil.rmtree('./temp',ignore_errors=False, onerror=None)	
+except:
+    print("Pasta vazia")
 
 #Cria a pastas que receberá os pdfs
 path_loc = os.path.join(os.getcwd(), "temp")
@@ -30,6 +34,14 @@ options.add_experimental_option("prefs", chrome_prefs)
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 driver.get("https://ru.unb.br/index.php/cardapio-refeitorio")
+lnks=driver.find_elements_by_tag_name("a")
+# traverse list
+for lnk in lnks:
+   # get_attribute() to get all href
+   print(lnk)
+driver.quit()
+
+
 
 cardapioDarcy = driver.find_element_by_xpath('/html/body/div[2]/div[3]/main/div[2]/div[11]/a')
 cardapioPlanaltina = driver.find_element_by_xpath('/html/body/div[2]/div[3]/main/div[2]/div[15]')

@@ -3,10 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 
 # URL from which pdfs to be downloaded
-url = "https://ru.unb.br/index.php/cardapio-refeitorio"
+url = "http://www.ru.unb.br/index.php/cardapio-refeitorio"
 
 # Requests URL and get response object
-response = requests.get(url)
+response = requests.get(url, verify = False)
 
 # Parse text obtained
 soup = BeautifulSoup(response.text, 'html.parser')
